@@ -1,0 +1,53 @@
+server:
+  tomcat:
+    uri-encoding: UTF-8
+    threads:
+      max: 200
+      min-spare: 30
+    connection-timeout: 5000ms
+  port: 3000
+  servlet:
+    context-path: /clos-api
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/clos?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: xjy2638468
+    initial-size: 8
+    max-active: 16
+    min-idle: 8
+    max-wait: 60000
+    test-while-idle: true
+    test-on-borrow: false
+    test-on-return: false
+  redis:
+    host: 192.168.0.109
+    port: 6379
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+mybatis:
+  mapper-locations: classpath*:mapper/*.xml
+  type-aliases-package: com.zgnba.clos.db.domain
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+
+logging:
+  level:
+    com.zgnb.wiki.db.mapper: info
+
+clos:
+  jwt:
+    # 密钥
+    secret: xjy2638468
+    # 令牌过期时间(天)
+    expire: 5
+    # 令牌缓存时间(天)
+    cache-expire: 10
+  filePath:
+    checkinFile: E:\\1\\JavaClosProject\\admin\\checkinFile\\
