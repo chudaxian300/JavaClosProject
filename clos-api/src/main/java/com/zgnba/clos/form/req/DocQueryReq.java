@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
 @Data
-@ApiModel
+@ApiModel(value = "文章内容查询校验类")
 public class DocQueryReq extends PageReq {
 
     private String ids;

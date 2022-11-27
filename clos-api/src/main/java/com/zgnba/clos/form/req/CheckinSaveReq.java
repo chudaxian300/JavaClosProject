@@ -1,20 +1,29 @@
 package com.zgnba.clos.form.req;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+@ApiModel(value = "签到保存参数校验类")
 public class CheckinSaveReq {
     private String id;
 
+    @ApiModelProperty(value = "签到者ID", example = "(不填)")
     private String userId;
 
     @NotNull(message = "【学院】不能为空")
+    @ApiModelProperty(value = "学院名", required = true)
     private String academy;
 
+    @ApiModelProperty(value = "班级名")
     private String className;
 
+    @ApiModelProperty(value = "图片路径", example = "(不填)")
     private String image;
 
+    @ApiModelProperty(value = "创建时间", example = "(不填)")
     private Date createTime;
 
     public String getId() {
