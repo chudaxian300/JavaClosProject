@@ -54,15 +54,13 @@ public class CheckinService {
         CheckinExample checkinExample = new CheckinExample();
         CheckinExample.Criteria criteria = checkinExample.createCriteria();
         if (!ObjectUtils.isEmpty(req.getAcademy())) {
-            Integer academyId = academyMapper.searchAcademyId(req.getAcademy());
-            criteria.andAcademyIdEqualTo(academyId);
+            criteria.andAcademyEqualTo(req.getAcademy());
         }
         if (!ObjectUtils.isEmpty(req.getClassName())) {
             criteria.andClassNameEqualTo(req.getClassName());
         }
         if (!ObjectUtils.isEmpty(req.getName())) {
-            String userId = userMapper.searchUserId(req.getName());
-            criteria.andUserIdEqualTo(userId);
+            criteria.andUserEqualTo(req.getName());
         }
         PageHelper.startPage(req.getPage(), req.getPageSize());
         List<Checkin> checkinList = checkinMapper.selectByExample(checkinExample);
@@ -87,11 +85,10 @@ public class CheckinService {
     @Transactional
     public void save(CheckinSaveReq req, MultipartFile multipartFile) {
         Checkin checkin = CopyUtil.copy(req, Checkin.class);
-        User user = userMapper.selectByPrimaryKey(req.getUserId());
 
         StringBuffer fileName = new StringBuffer();
         fileName.append("-");
-        fileName.append(user.getName());
+        fileName.append(req.getUser());
         fileName.append("-");
         fileName.append(req.getAcademy());
         if (!ObjectUtils.isEmpty(checkin.getClassName())){
@@ -103,10 +100,9 @@ public class CheckinService {
         String filePath = FileUtil.upload(multipartFile, checkinFilePath, fileName.toString());
 
         if (ObjectUtils.isEmpty(checkin.getId())) {
-            Integer academyId = academyMapper.searchAcademyId(req.getAcademy());
             DateTime now = DateUtil.date();
             // 新增
-            checkin.setAcademyId(academyId);
+            checkin.setAcademy(req.getAcademy());
             checkin.setImage(filePath);
             checkin.setId(String.valueOf(snowFlake.nextId()));
             checkin.setCreateTime(now);

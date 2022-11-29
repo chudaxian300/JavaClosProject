@@ -41,9 +41,7 @@ public class AuditController {
     @PostMapping("/save")
     @ApiOperation("编辑待审核帖子")
     @RequiresPermissions(value = {"ROOT","POST:UPDATE"}, logical = Logical.OR)
-    public Result save(@Valid @RequestBody AuditSaveReq req, @RequestHeader("token") @ApiIgnore String token) {
-        String userId = jwtUtil.getUserId(token);
-        req.setCreator(userId);
+    public Result save(@Valid @RequestBody AuditSaveReq req) {
         auditService.save(req);
         return Result.ok();
     }

@@ -161,9 +161,4 @@
     set academy = #{academy,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="searchAcademyId" resultType="java.lang.Integer">
-        SELECT id
-        FROM academy
-        WHERE academy=#{academy};
-  </select>
 </mapper>

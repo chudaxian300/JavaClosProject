@@ -10,8 +10,8 @@ import java.util.Date;
 public class CheckinSaveReq {
     private String id;
 
-    @ApiModelProperty(value = "签到者ID", example = "(不填)")
-    private String userId;
+    @ApiModelProperty(value = "签到者",  hidden = true)
+    private String user;
 
     @NotNull(message = "【学院】不能为空")
     @ApiModelProperty(value = "学院名", required = true)
@@ -20,10 +20,10 @@ public class CheckinSaveReq {
     @ApiModelProperty(value = "班级名")
     private String className;
 
-    @ApiModelProperty(value = "图片路径", example = "(不填)")
+    @ApiModelProperty(value = "图片路径",  hidden = true)
     private String image;
 
-    @ApiModelProperty(value = "创建时间", example = "(不填)")
+    @ApiModelProperty(value = "创建时间",  hidden = true)
     private Date createTime;
 
     public String getId() {
@@ -34,12 +34,12 @@ public class CheckinSaveReq {
         this.id = id;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getUser() {
+        return user;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUser(String userId) {
+        this.user = userId;
     }
 
     public String getAcademy() {
@@ -78,7 +78,7 @@ public class CheckinSaveReq {
     public String toString() {
         return "CheckinSaveReq{" +
                 "id='" + id + '\'' +
-                ", userId='" + userId + '\'' +
+                ", userId='" + user + '\'' +
                 ", academy='" + academy + '\'' +
                 ", className='" + className + '\'' +
                 ", image=" + image +

@@ -32,6 +32,4 @@ public interface AcademyMapper {
     int updateByPrimaryKeySelective(Academy record);
 
     int updateByPrimaryKey(Academy record);
-
-    Integer searchAcademyId(String academy);
 }

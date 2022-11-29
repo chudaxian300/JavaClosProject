@@ -3,11 +3,11 @@ package com.zgnba.clos.form.resp;
 import java.util.Date;
 
 public class CheckinQueryResp {
-    private Integer id;
+    private String id;
 
-    private Integer userId;
+    private String user;
 
-    private Integer academyId;
+    private String academy;
 
     private String className;
 
@@ -15,28 +15,28 @@ public class CheckinQueryResp {
 
     private Date createTime;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public String getUser() {
+        return user;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUser(String user) {
+        this.user = user;
     }
 
-    public Integer getAcademyId() {
-        return academyId;
+    public String getAcademy() {
+        return academy;
     }
 
-    public void setAcademyId(Integer academyId) {
-        this.academyId = academyId;
+    public void setAcademy(String academy) {
+        this.academy = academy;
     }
 
     public String getClassName() {
@@ -70,8 +70,8 @@ public class CheckinQueryResp {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", userId=").append(userId);
-        sb.append(", academyId=").append(academyId);
+        sb.append(", userId=").append(user);
+        sb.append(", academyId=").append(academy);
         sb.append(", className=").append(className);
         sb.append(", image=").append(image);
         sb.append(", createTime=").append(createTime);

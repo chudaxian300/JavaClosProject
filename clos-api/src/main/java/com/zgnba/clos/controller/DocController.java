@@ -11,8 +11,12 @@ import com.zgnba.clos.form.resp.DocQueryResp;
 import com.zgnba.clos.form.resp.PageResp;
 import com.zgnba.clos.service.AuditService;
 import com.zgnba.clos.service.DocService;
+import com.zgnba.clos.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
@@ -33,6 +37,9 @@ public class DocController {
     private AuditService auditService;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private JwtUtil jwtUtil;
 
     @GetMapping("/list")
@@ -46,7 +53,8 @@ public class DocController {
     @ApiOperation("编辑帖子")
     public Result save(@Valid @RequestBody DocSaveReq req, @RequestHeader("token") @ApiIgnore String token) {
         String userId = jwtUtil.getUserId(token);
-        req.setCreator(userId);
+        String s = userService.selectByUserId(userId);
+        req.setCreator(s);
         AuditSaveReq auditSaveReq = CopyUtil.copy(req, AuditSaveReq.class);
         auditService.save(auditSaveReq);
         return Result.ok();

@@ -8,6 +8,7 @@ import com.zgnba.clos.db.domain.*;
 import com.zgnba.clos.db.mapper.CollectMapper;
 import com.zgnba.clos.db.mapper.ContentMapper;
 import com.zgnba.clos.db.mapper.DocMapper;
+import com.zgnba.clos.db.mapper.UserMapper;
 import com.zgnba.clos.exception.ClosException;
 import com.zgnba.clos.exception.ClosExceptionCode;
 import com.zgnba.clos.form.req.DocQueryReq;
@@ -44,7 +45,9 @@ public class DocService {
         DocExample docExample = new DocExample();
         DocExample.Criteria criteria = docExample.createCriteria();
         if (!ObjectUtils.isEmpty(req.getIds())) {
-            List<String> list = Arrays.asList(req.getIds());
+            String substring = req.getIds().substring(1, req.getIds().length() - 1);
+            String[] split = substring.split(", ");
+            List<String> list = new ArrayList<>(Arrays.asList(split));
             criteria.andIdIn(list);
         }
         PageHelper.startPage(req.getPage(), req.getPageSize());
@@ -106,6 +109,7 @@ public class DocService {
         Content content = contentMapper.selectByPrimaryKey(id);
         // 文档阅读数+1
         docMapper.increaseViewCount(id);
+        log.info(String.valueOf(content));
         if (ObjectUtils.isEmpty(content)) {
             return "";
         } else {

@@ -5,9 +5,9 @@ import java.util.Date;
 public class Checkin {
     private String id;
 
-    private String userId;
+    private String user;
 
-    private Integer academyId;
+    private String academy;
 
     private String className;
 
@@ -23,20 +23,20 @@ public class Checkin {
         this.id = id;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getUser() {
+        return user;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUser(String user) {
+        this.user = user;
     }
 
-    public Integer getAcademyId() {
-        return academyId;
+    public String getAcademy() {
+        return academy;
     }
 
-    public void setAcademyId(Integer academyId) {
-        this.academyId = academyId;
+    public void setAcademy(String academy) {
+        this.academy = academy;
     }
 
     public String getClassName() {
@@ -70,8 +70,8 @@ public class Checkin {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", userId=").append(userId);
-        sb.append(", academyId=").append(academyId);
+        sb.append(", user=").append(user);
+        sb.append(", academy=").append(academy);
         sb.append(", className=").append(className);
         sb.append(", image=").append(image);
         sb.append(", createTime=").append(createTime);

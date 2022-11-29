@@ -3,8 +3,8 @@
 <mapper namespace="com.zgnba.clos.db.mapper.CheckinMapper">
   <resultMap id="BaseResultMap" type="com.zgnba.clos.db.domain.Checkin">
     <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="user_id" jdbcType="VARCHAR" property="userId" />
-    <result column="academy_id" jdbcType="INTEGER" property="academyId" />
+    <result column="user" jdbcType="VARCHAR" property="user" />
+    <result column="academy" jdbcType="VARCHAR" property="academy" />
     <result column="class_name" jdbcType="VARCHAR" property="className" />
     <result column="image" jdbcType="VARCHAR" property="image" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -68,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_id, academy_id, class_name, image, create_time
+    id, `user`, academy, class_name, image, create_time
   </sql>
   <select id="selectByExample" parameterType="com.zgnba.clos.db.domain.CheckinExample" resultMap="BaseResultMap">
     select
@@ -101,10 +101,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.zgnba.clos.db.domain.Checkin">
-    insert into checkin (id, user_id, academy_id, 
+    insert into checkin (id, `user`, academy, 
       class_name, image, create_time
       )
-    values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{academyId,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=VARCHAR}, #{user,jdbcType=VARCHAR}, #{academy,jdbcType=VARCHAR}, 
       #{className,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
       )
   </insert>
@@ -114,11 +114,11 @@
       <if test="id != null">
         id,
       </if>
-      <if test="userId != null">
-        user_id,
+      <if test="user != null">
+        `user`,
       </if>
-      <if test="academyId != null">
-        academy_id,
+      <if test="academy != null">
+        academy,
       </if>
       <if test="className != null">
         class_name,
@@ -134,11 +134,11 @@
       <if test="id != null">
         #{id,jdbcType=VARCHAR},
       </if>
-      <if test="userId != null">
-        #{userId,jdbcType=VARCHAR},
+      <if test="user != null">
+        #{user,jdbcType=VARCHAR},
       </if>
-      <if test="academyId != null">
-        #{academyId,jdbcType=INTEGER},
+      <if test="academy != null">
+        #{academy,jdbcType=VARCHAR},
       </if>
       <if test="className != null">
         #{className,jdbcType=VARCHAR},
@@ -163,11 +163,11 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=VARCHAR},
       </if>
-      <if test="record.userId != null">
-        user_id = #{record.userId,jdbcType=VARCHAR},
+      <if test="record.user != null">
+        `user` = #{record.user,jdbcType=VARCHAR},
       </if>
-      <if test="record.academyId != null">
-        academy_id = #{record.academyId,jdbcType=INTEGER},
+      <if test="record.academy != null">
+        academy = #{record.academy,jdbcType=VARCHAR},
       </if>
       <if test="record.className != null">
         class_name = #{record.className,jdbcType=VARCHAR},
@@ -186,8 +186,8 @@
   <update id="updateByExample" parameterType="map">
     update checkin
     set id = #{record.id,jdbcType=VARCHAR},
-      user_id = #{record.userId,jdbcType=VARCHAR},
-      academy_id = #{record.academyId,jdbcType=INTEGER},
+      `user` = #{record.user,jdbcType=VARCHAR},
+      academy = #{record.academy,jdbcType=VARCHAR},
       class_name = #{record.className,jdbcType=VARCHAR},
       image = #{record.image,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP}
@@ -198,11 +198,11 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.zgnba.clos.db.domain.Checkin">
     update checkin
     <set>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=VARCHAR},
+      <if test="user != null">
+        `user` = #{user,jdbcType=VARCHAR},
       </if>
-      <if test="academyId != null">
-        academy_id = #{academyId,jdbcType=INTEGER},
+      <if test="academy != null">
+        academy = #{academy,jdbcType=VARCHAR},
       </if>
       <if test="className != null">
         class_name = #{className,jdbcType=VARCHAR},
@@ -218,8 +218,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zgnba.clos.db.domain.Checkin">
     update checkin
-    set user_id = #{userId,jdbcType=VARCHAR},
-      academy_id = #{academyId,jdbcType=INTEGER},
+    set `user` = #{user,jdbcType=VARCHAR},
+      academy = #{academy,jdbcType=VARCHAR},
       class_name = #{className,jdbcType=VARCHAR},
       image = #{image,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP}

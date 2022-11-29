@@ -36,4 +36,6 @@ public interface DocMapper {
     void increaseViewCount(@Param("id") String id);
 
     void increaseVoteCount(@Param("id") String id);
+
+
 }

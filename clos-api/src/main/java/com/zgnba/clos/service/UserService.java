@@ -42,7 +42,7 @@ public class UserService {
             criteria.andLoginNameEqualTo(req.getLoginName());
         }
         PageHelper.startPage(req.getPage(), req.getPageSize());
-        List<User> userList = userMapper.selectByExample(userExample);
+        List<User> userList = userMapper.selectByExampleWithBLOBs(userExample);
         PageInfo<User> pageInfo = new PageInfo<>(userList);
         log.info("总行数：{}", pageInfo.getTotal());
         log.info("总页数：{}", pageInfo.getPages());
@@ -112,6 +112,18 @@ public class UserService {
             return null;
         } else {
             return users.get(0);
+        }
+    }
+
+    public String selectByUserId(String userId) {
+        UserExample userExample = new UserExample();
+        UserExample.Criteria criteria = userExample.createCriteria();
+        criteria.andIdEqualTo(userId);
+        List<User> users = userMapper.selectByExample(userExample);
+        if (CollectionUtils.isEmpty(users)) {
+            return null;
+        } else {
+            return users.get(0).getName();
         }
     }
 

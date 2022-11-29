@@ -7,6 +7,7 @@ import com.zgnba.clos.form.req.CheckinSaveReq;
 import com.zgnba.clos.form.resp.CheckinQueryResp;
 import com.zgnba.clos.form.resp.PageResp;
 import com.zgnba.clos.service.CheckinService;
+import com.zgnba.clos.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.Logical;
@@ -29,6 +30,9 @@ public class CheckinController {
     private CheckinService checkinService;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private JwtUtil jwtUtil;
 
     @GetMapping("/list")
@@ -42,7 +46,8 @@ public class CheckinController {
     @ApiOperation("编辑签到")
     public Result save(@Valid CheckinSaveReq req, @RequestPart("file") MultipartFile file, @RequestHeader("token") @ApiIgnore String token) {
         String userId = jwtUtil.getUserId(token);
-        req.setUserId(userId);
+        String s = userService.selectByUserId(userId);
+        req.setUser(s);
         checkinService.save(req, file);
         return Result.ok();
     }

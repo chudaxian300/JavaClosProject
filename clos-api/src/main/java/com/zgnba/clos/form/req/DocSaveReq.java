@@ -12,21 +12,20 @@ public class DocSaveReq {
     private String id;
 
     @NotNull(message = "【创建者】不能为空")
-    @ApiModelProperty(value = "创建者ID", example = "(不填)")
+    @ApiModelProperty(value = "创建者",  hidden = true)
     private String creator;
 
     @NotNull(message = "【名称】不能为空")
     @ApiModelProperty(value = "待审核文章名", required = true)
     private String name;
 
-    @NotNull(message = "【内容】不能为空")
-    @ApiModelProperty(value = "待审核文章内容", required = true)
+    @ApiModelProperty(value = "文章内容", required = true)
     private String content;
 
-    @ApiModelProperty(value = "阅读量", example = "(不填)")
+    @ApiModelProperty(value = "阅读量",  hidden = true)
     private Integer viewCount;
 
-    @ApiModelProperty(value = "点赞量", example = "(不填)")
+    @ApiModelProperty(value = "点赞量",  hidden = true)
     private Integer voteCount;
 
 }

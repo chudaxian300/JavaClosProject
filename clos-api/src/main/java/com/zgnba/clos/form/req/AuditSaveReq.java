@@ -14,11 +14,11 @@ public class AuditSaveReq {
     private String id;
 
     @NotNull(message = "【有效性】不能为空")
-    @ApiModelProperty(value = "数据ID", required = true)
+    @ApiModelProperty(value = "有效性", required = true)
     private Integer valid;
 
     @NotNull(message = "【创建者】不能为空")
-    @ApiModelProperty(value = "创建者ID", example = "(不填)")
+    @ApiModelProperty(value = "创建者", hidden = true)
     private String creator;
 
     @NotNull(message = "【名称】不能为空")
