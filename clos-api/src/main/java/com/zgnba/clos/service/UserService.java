@@ -57,18 +57,22 @@ public class UserService {
         return pageResp;
     }
 
-    public void save(UserSaveReq user) {
+    public String save(UserSaveReq user) {
         User user1 = CopyUtil.copy(user, User.class);
         if (ObjectUtils.isEmpty(user.getId())) {
             if (ObjectUtils.isEmpty(selectByLoginName(user.getLoginName()))) {
-                user1.setId(String.valueOf(snowFlake.nextId()));
+                String id = String.valueOf(snowFlake.nextId());
+                user1.setId(id);
+                user1.setRole("[2]");
                 userMapper.insert(user1);
+                return id;
             } else {
                 throw new ClosException(ClosExceptionCode.LOGIN_USER_ERROR);
             }
         } else {
             user.setPassword(null);
             userMapper.updateByPrimaryKeySelective(user1);
+            return null;
         }
     }
 

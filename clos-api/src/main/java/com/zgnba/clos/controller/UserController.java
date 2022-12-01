@@ -1,5 +1,6 @@
 package com.zgnba.clos.controller;
 
+import com.zgnba.clos.common.utils.CopyUtil;
 import com.zgnba.clos.common.utils.JwtUtil;
 import com.zgnba.clos.common.utils.Result;
 import com.zgnba.clos.form.req.UserLoginReq;
@@ -19,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.DigestUtils;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -54,7 +56,17 @@ public class UserController {
     @ApiOperation("编辑用户")
     public Result save(@Valid @RequestBody UserSaveReq req) {
         req.setPassword(DigestUtils.md5DigestAsHex(req.getPassword().getBytes()));
-        userService.save(req);
+        String save = userService.save(req);
+        if (!ObjectUtils.isEmpty(save)){
+            UserLoginReq userLoginReq = CopyUtil.copy(req, UserLoginReq.class);
+            req.setPassword(DigestUtils.md5DigestAsHex(userLoginReq.getPassword().getBytes()));
+            UserLoginResq userLoginResq = userService.login(userLoginReq);
+            String token = jwtUtil.createToken(save);
+            userLoginResq.setToken(token);
+            saveCacheToken(token, userLoginResq.getId());
+            log.info("生成单点登录token: {}, 并放入redis中", token);
+            return Result.ok().put("content", userLoginResq);
+        }
         return Result.ok();
     }
 
